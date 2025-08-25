@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>DEM Side-by-Side Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <!-- Local Side-by-Side Plugin CSS -->
+  <link rel="stylesheet" href="range.css" />
+
+  <style>
+    body { margin:0; padding:0; }
+    #map { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Local Side-by-Side Plugin JS -->
+  <script src="leaflet-side-by-side.js"></script>
+
+  <script>
+    // Initialize map (center over your area)
+    var map = L.map('map').setView([14.65, 121.05], 12);
+
+    // DEM Original layer
+    var before = L.tileLayer('DEM_OG/{z}/{x}/{y}.png', {
+      attribution: 'DEM Original',
+      minZoom: 10,
+      maxZoom: 15
+    }).addTo(map);
+
+    // DEM Inverted layer
+    var after = L.tileLayer('DEM_Inverted/{z}/{x}/{y}.png', {
+      attribution: 'DEM Inverted',
+      minZoom: 10,
+      maxZoom: 15
+    }).addTo(map);
+
+    // Add side-by-side slider
+    L.control.sideBySide(before, after).addTo(map);
+  </script>
+</body>
+</html>
